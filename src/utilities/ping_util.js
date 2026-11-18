@@ -23,12 +23,16 @@ async function command_ping(networkObjectId, destination) {
     const $networkObject = document.getElementById(networkObjectId);
 
     const stateHandler = {
-        0: () => pingSuccess(destination),
+        0: () => {
+            const receivedPacket = buffer[networkObjectId];
+            const replyTtl = (receivedPacket && typeof receivedPacket.ttl === "number") ? receivedPacket.ttl : 64;
+            pingSuccess(destination, replyTtl);
+        },
         1: () => terminalMessage(`ping: ${destination}: Name or service not known.`, networkObjectId),
         2: () => terminalMessage(`ping: ${destination}: The IP address is not valid.`, networkObjectId),
         3: () => pingFailure(destination),
         4: () => terminalMessage(`ping: ${destination}: Network is unreachable.`, networkObjectId)
-    }
+    };
 
     cleanPacketTraffic();
 
@@ -76,13 +80,14 @@ async function quickPing(id) {
 
     createPacketIndicator(id);
 
-    visualToggle =  true;
+    const previousVisualToggle = visualToggle;
+    visualToggle = true;
 
         await ping(quickPingObject, networkObjectIp);
         $board.querySelectorAll(".pack-cursor").forEach(cursor => {cursor.remove();});
         quickPingObject = "";
 
-    visualToggle = false;
+    visualToggle = previousVisualToggle;
 
 
 }

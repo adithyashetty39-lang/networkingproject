@@ -8,7 +8,7 @@ const $APACHEDEFAULTCONTENT = `
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Apache2 PackeTTrino Default Page: It works</title>
+<title>Apache2 NetPulse Default Page: It works</title>
 <style type="text/css" media="screen">
 :root {
 --primary-color: #2563eb;
@@ -124,7 +124,7 @@ margin-bottom: 12px;
 <div class="page_header floating_element">
 <img src="./assets/favicon.svg" alt="Ubuntu Logo" class="floating_element"/>
 <span class="floating_element">
-Apache2 PackeTTrino Default Page
+Apache2 NetPulse Default Page
 </span>
 </div>
 <div class="content_section floating_element">
@@ -134,10 +134,10 @@ It works!
 </div>
 <div class="content_section_text">
 <p>
-This is the default welcome page used to verify that the Apache2 PackeTTrino server is
+This is the default welcome page used to verify that the Apache2 NetPulse server is
 working correctly after installation.
 It is based on the equivalent Debian page, from which the Apache package in Ubuntu is derived.
-If you can read this page, the Apache PackeTTrino HTTP server installed at this site is working correctly.
+If you can read this page, the Apache NetPulse HTTP server installed at this site is working correctly.
 You should <b>replace this file</b> (located at
 <tt>/var/www/html/index.html</tt>) before continuing to use your HTTP server.
 </p>
@@ -333,7 +333,7 @@ margin-bottom: 12px;
 <div class="page_header floating_element">
 <div class="warning-icon">⚠</div>
 <span class="floating_element">
-Apache2 PackeTTrino Server
+Apache2 NetPulse Server
 </span>
 </div>
 <div class="content_section floating_element">
@@ -348,7 +348,7 @@ Error 403 - Access Denied
 <p>
 We're sorry, but your connection request has been <b>rejected</b> by the server.
 You do not have sufficient permissions to access this resource on
-<tt>Apache2 PackeTTrino</tt>.
+<tt>Apache2 NetPulse</tt>.
 </p>
 <p>
 This message indicates that the web server is working correctly, but access
@@ -545,7 +545,7 @@ margin-bottom: 12px;
 <div class="page_header floating_element">
 <div class="warning-icon">⚠</div>
 <span class="floating_element">
-Apache2 PackeTTrino Server
+Apache2 NetPulse Server
 </span>
 </div>
 <div class="content_section floating_element">
@@ -560,7 +560,7 @@ You do not have access to this resource.
 <p>
 We're sorry, but your connection request has been <b>rejected</b> by the server.
 You do not have sufficient permissions to access this resource on
-<tt>Apache2 PackeTTrino</tt>.
+<tt>Apache2 NetPulse</tt>.
 </p>
 <p>
 This message indicates that the web server is working correctly, but access
@@ -967,7 +967,7 @@ margin-bottom: 12px;
 <div class="page_header floating_element">
 <div class="warning-icon">⚠</div>
 <span class="floating_element">
-Apache2 PackeTTrino Server
+Apache2 NetPulse Server
 </span>
 </div>
 <div class="content_section floating_element">
@@ -981,7 +981,7 @@ The requested resource was not found on this server.
 <div class="content_section_text">
 <p>
 We're sorry, but the requested resource was not found on this server.
-<tt>Apache2 PackeTTrino</tt>.
+<tt>Apache2 NetPulse</tt>.
 </p>
 </div>
 </div>
@@ -1000,7 +1000,7 @@ return `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://w
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Loading - PackeTTrino</title>
+<title>Loading - NetPulse</title>
 <style type="text/css" media="screen">
 :root {
 --primary-color: rgb(59, 130, 246);

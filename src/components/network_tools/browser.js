@@ -35,7 +35,7 @@ function browser() {
                     <button class="icon refresh" aria-label="Refresh" id="btn-refresh">↻</button>
                 </div>
 
-                <input type="text" class="address-input" placeholder="https://www.example.com" aria-label="Address bar">
+                <input type="text" class="address-input" placeholder="http://192.168.2.50 or http://web.netpulse.local" aria-label="Address bar">
 
                <!-- <div class="address-bar-icons">
                     <button class="icon star" aria-label="Bookmark">★</button>
@@ -58,6 +58,7 @@ function browser() {
     });
     $browser.querySelector(".address-input").addEventListener("mousedown", event => { event.stopPropagation(); });
     $browser.querySelector(".browser-content").addEventListener("mousedown", event => { event.stopPropagation(); });
+    $browser.querySelector(".browser-content").addEventListener("mousedown", event => { event.stopPropagation(); });
     $browser.querySelector("#btn-refresh").addEventListener("click", browserSearch);
 
     return $browser;
@@ -68,8 +69,69 @@ function browser() {
 
 /** @type {string} Inline HTML document used as the browser's default home page. */
 const $BROWSERHOMEPAGE = `
-    <title>Amin Search</title><meta charset=UTF-8><meta content="width=device-width,initial-scale=1"name=viewport>
-    <style>body{margin:0;display:grid;place-items:center;height:70vh}</style><img alt=logo src=./assets/browser/aminsearch.png>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <title>NetSearch - NetPulse Web</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            body {
+                margin: 0;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                height: 70vh;
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+                background: #f8fafc;
+                color: #1e293b;
+            }
+            .logo-box {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 12px;
+                text-align: center;
+            }
+            .logo-title {
+                margin: 0;
+                font-size: 42px;
+                font-weight: 800;
+                color: #2563eb;
+                letter-spacing: -1.5px;
+            }
+            .logo-title span {
+                color: #ea580c;
+            }
+            .subtitle {
+                margin: 0;
+                color: #64748b;
+                font-size: 14px;
+                font-weight: 500;
+            }
+            .hint-box {
+                margin-top: 24px;
+                background: white;
+                border: 1px solid #e2e8f0;
+                border-radius: 8px;
+                padding: 12px 20px;
+                font-size: 13px;
+                color: #475569;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="logo-box">
+            <h1 class="logo-title">Net<span>Pulse</span> Search</h1>
+            <p class="subtitle">Simulated Enterprise HTTP & Web Portal</p>
+            <div class="hint-box">
+                Type an IP (e.g. <code>http://192.168.2.50</code>) or Domain Name in the address bar above to browse simulated websites.
+            </div>
+        </div>
+    </body>
+    </html>
 `;
 
 /** @type {string} Full HTML document displayed when a requested page is not found (404). */
@@ -77,7 +139,7 @@ const $BROWSERERRORPAGE = `
     <!DOCTYPE html>
     <html lang="en">
     <head>
-        <title>Amin Search</title>
+        <title>NetSearch - Page Not Found</title>
         <meta charset="UTF-8">
         <meta content="width=device-width,initial-scale=1" name="viewport">
         <style>
@@ -165,11 +227,11 @@ const $BROWSERERRORPAGE = `
     <body>
         <div class="container">
             <div class="error-header">
-                <span>Amin Search</span>
+                <span>NetSearch Portal</span>
             </div>
             <div class="error-code">404</div>
             <h1>Page Not Found!</h1>
-            <p>The page you are looking for does not exist or has been moved to another location.</p>
+            <p>The page you are looking for does not exist or the target web server is unreachable.</p>
             <p id="error-message"></p>
         </div>
     </body>
@@ -190,7 +252,7 @@ function openBrowser(event) {
     event.preventDefault();
     const $networkObject = event.target.closest(".item-dropped"); //get the nearest object
     $networkObject.querySelector(".advanced-options-modal").style.display = "none"; //hide the advanced options modal
-    document.querySelector(".browser-content").srcdoc = $BROWSERHOMEPAGE //restore the original browser content
+    document.querySelector(".browser-content").srcdoc = $BROWSERHOMEPAGE; //restore the original browser content
     document.querySelector(".browser-component").style.display = "flex"; //show the browser
     document.querySelector(".browser-component").setAttribute("data-id", $networkObject.id); //set the browser id
 }
@@ -209,7 +271,7 @@ function closeBrowser(event) {
     const browser = document.querySelector(".browser-component");
     if (browser.style.left !== "0px" && browser.style.left !== "0%") {
         //restore original browser content
-        document.querySelector(".browser-content").innerHTML = `<img src="./assets/browser/aminsearch.png" alt="logo"></img>`;
+        document.querySelector(".browser-content").srcdoc = $BROWSERHOMEPAGE;
         //clear the address input
         document.querySelector(".address-input").value = "";
         //remove the src reference
@@ -229,8 +291,8 @@ function closeBrowser(event) {
  */
 async function minimizeBrowser() {
     const browser = document.querySelector(".browser-component");
-    if (!browser || browser.style.display === "none") return resolve();
-    if (browser.style.left === "0px" || browser.style.left === "0%") return resolve();
+    if (!browser || browser.style.display === "none") return;
+    if (browser.style.left === "0px" || browser.style.left === "0%") return;
     return new Promise(resolve => {
         const rect = browser.getBoundingClientRect();
         const targetWidth = rect.width * 0.3;

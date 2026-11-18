@@ -9,7 +9,7 @@
  * @param {string} networkObjectId - The DOM element ID of the network object to install/remove the package on.
  * @param {string} option - Action to perform: "install" or "remove".
  * @param {string} package - Package name. One of: "apache2", "bind9", "isc-dhcp-server",
- *   "isc-dhcp-relay", "isc-dhcp-client", "amin-search".
+ *   "isc-dhcp-relay", "isc-dhcp-client", "net-search", "amin-search".
  * @returns {void}
  * @throws {Error} If the package is unknown, already installed (on install), or not installed (on remove).
  */
@@ -17,7 +17,7 @@ function dpkg(networkObjectId, option, package) {
 
     const $networkObject = document.getElementById(networkObjectId);
 
-    const availablePackages = ["apache2", "bind9", "isc-dhcp-server", "isc-dhcp-relay", "isc-dhcp-client", "amin-search"];
+    const availablePackages = ["apache2", "bind9", "isc-dhcp-server", "isc-dhcp-relay", "isc-dhcp-client", "net-search", "amin-search"];
 
     const packagesToServices = {
         "apache2": "apache2",
@@ -25,8 +25,9 @@ function dpkg(networkObjectId, option, package) {
         "isc-dhcp-server": "dhcpd",
         "isc-dhcp-relay": "dhcrelay",
         "isc-dhcp-client": "dhclient",
+        "net-search": "browser",
         "amin-search": "browser",
-    }
+    };
 
     if (!availablePackages.includes(package)) throw new Error(`Error: Unable to locate package ${package}.`);
 
@@ -52,8 +53,9 @@ function dpkg(networkObjectId, option, package) {
             "isc-dhcp-server": () => installDhcpd($networkObject),
             "isc-dhcp-relay": () => installDhcprelay($networkObject),
             "isc-dhcp-client": () => installDhclient($networkObject),
+            "net-search": () => installBrowser($networkObject),
             "amin-search": () => installBrowser($networkObject),
-        }
+        };
 
         installFunctions[package]();
 
@@ -73,8 +75,9 @@ function dpkg(networkObjectId, option, package) {
             "isc-dhcp-server": () => uninstallDhcpd(networkObjectId),
             "isc-dhcp-relay": () => uninstallDhcprelay(networkObjectId),
             "isc-dhcp-client": () => uninstallDhclient(networkObjectId),
+            "net-search": () => uninstallBrowser(networkObjectId),
             "amin-search": () => uninstallBrowser(networkObjectId),
-        }
+        };
 
         uninstallFunctions[package]();
 

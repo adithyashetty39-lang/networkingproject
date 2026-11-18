@@ -81,12 +81,7 @@ class slidePresentation {
                 <button class="end-presentation btn-modern-blue" onclick="tutorial.endPresentation();">Done!</button>
             </div>
             <div class="links">
-                <a href="https://github.com/EvilPrime98/PackeTTrino" target="_blank">
-                    <img src="./assets/github.svg" alt="github">
-                </a>
-                <a href="https://www.linkedin.com/in/josé-amín-pérez-alconchel-2191b430b" target="_blank">
-                    <img src="./assets/linkedin.svg" alt="linkedin">
-                </a>
+                <span style="font-size: 12px; color: #64748b; font-weight: 600;">NetPulse Network Simulator</span>
             </div>
         `;
 
@@ -100,132 +95,115 @@ class slidePresentation {
     }
 
     /**
-     * @description Transitions to the given slide number with a short hide animation. Does nothing
-     * if the presentation is not rendered, the slide number equals the current slide, or the slide
-     * index is out of range.
-     * @param {number} slideNumber - Zero-based index of the slide to navigate to.
+     * @description Navigates to the slide at `slideIndex`. Loops to 0 when passing the end,
+     * updates active indicators on the page selector buttons, and reveals the selected slide.
+     * @param {number} slideIndex - Zero-based index of the slide to display.
      * @returns {void}
      */
-    render(slideNumber) {
+    render(slideIndex) {
 
-        if (!this.isRendered) return;
-        if (this.currentSlide === slideNumber) return;
-        if (slideNumber >= this.slides.length) return;
+        if (slideIndex > this.slides.length - 1) slideIndex = 0;
 
-        const $currentButton = document.querySelector('.slide-presentation').querySelectorAll('.page-selector__btn')[this.currentSlide];
-        const $nextButton = document.querySelector('.slide-presentation').querySelectorAll('.page-selector__btn')[slideNumber];
-        const $currentSlide = document.querySelector('.slide-presentation').querySelectorAll('.slide')[this.currentSlide];
-        const $nextSlide = document.querySelector('.slide-presentation').querySelectorAll('.slide')[slideNumber];
+        const $slidePresentationHTML = $('.slide-presentation');
+        const $slides = $$('.slide', $slidePresentationHTML);
+        const $pageSelectors = $$('.page-selector__btn', $slidePresentationHTML);
+        const $currentSlide = $slides[slideIndex];
 
-        $currentSlide.classList.add('hiding');
+        $pageSelectors.forEach($selector => $selector.classList.remove('active'));
+        $pageSelectors[slideIndex].classList.add('active');
 
-        setTimeout(() => {
-            $currentSlide.classList.remove('hiding');
-            $currentSlide.classList.add('hidden');
-            $nextSlide.classList.remove('hidden');
-            $currentButton.classList.remove('active');
-            $nextButton.classList.add('active');
-        }, 200);
+        $slides.forEach($slide => $slide.classList.add('hidden'));
+        $currentSlide.classList.remove('hidden');
 
-        this.currentSlide = slideNumber;
-    }
-
-    /**
-     * @description TODO: Clarify intent.
-     * @param {Element} element - Element to highlight.
-     * @returns {void}
-     */
-    highlight(element) {
+        this.currentSlide = slideIndex;
 
     }
 
     /**
-     * @description Dismisses the presentation with a hide animation, removes it from the DOM,
-     * hides the modal overlay, and persists a flag in `localStorage` so the tutorial is not shown
-     * again automatically.
+     * @description Dismisses the presentation by animating the modal out, removing it from the
+     * DOM, hiding the modal overlay, and recording `"tutorial-seen"` in `localStorage`.
      * @returns {void}
      */
     endPresentation() {
-        document.querySelector(".slide-presentation").classList.add('hiding');
-        document.querySelector(".modal-overlay").style.display = "none";
-        setTimeout(() => {
-            document.querySelector(".slide-presentation").remove();
-        }, 200);
 
+        const $slidePresentationHTML = $('.slide-presentation');
+        $slidePresentationHTML.style.animation = 'scale-down 0.2s ease forwards';
+
+        setTimeout(() => {
+            $slidePresentationHTML.remove();
+            this.isRendered = false;
+        }, 300);
+
+        document.querySelector(".modal-overlay").style.display = "none";
         localStorage.setItem("tutorial-seen", "true");
+
     }
 
 }
 
-
 const introductionSlide = new slide(
-  'Welcome to PackeTTrino 🥳',
+  'Welcome to NetPulse 🌐',
   './assets/favicon.svg',
-  `PackeTTrino is a graphical and interactive tool for learning networking in an intuitive way.
-    In this tutorial, you will learn how to create devices, connect them, and simulate a complete network. Let's get started!`
+  `NetPulse is an interactive Computer Networks engineering platform designed to simulate, analyze, and visualize network protocols in real time.
+    In this environment, you can design multi-subnet topologies, inspect live packet flows, configure Linux network daemons, and test protocol behaviors hands-on.`
 );
 
 introductionSlide.mediaShadow = "none";
 
 const createAndConnectDevicesSlide = new slide(
-  'Create and connect devices 💻',
+  'Create and Connect Devices 💻',
   './assets/tutorial/slide1.gif',
   `To create a device, drag it from the bottom panel onto the workspace.
-  You can drop computers, switches, routers, and more. Each one has its own menu for configuration.
-  Try connecting PCs to switches, switches to routers, etc. Cables will appear visually on the workspace.`
+  You can place PCs, switches, routers, DHCP servers, and DNS servers. Each device has full Linux network stack configuration.
+  Connect devices with cables to form local or multi-hop inter-network topologies.`
 );
 
 const configureDevicesSlide = new slide(
-  'Device options ⚙️',
+  'Device Configuration ⚙️',
   './assets/tutorial/slideDeviceSettings.gif',
-  `Right-click on a device to access its configuration options.
-  You will see different options depending on the device and the installed packages.`
+  `Click on any device to access its configuration options.
+  Configure IP addresses, subnet masks, default gateways, routing tables, and daemon services directly.`
 );
 
 const testNetworkSlide = new slide(
-  'Connectivity Test 📡',
+  'Connectivity & Protocol Testing 📡',
   './assets/tutorial/slidePing.gif',
-  `Once the devices are connected and configured,
-  test the network with <code>ping</code> between hosts. If everything is properly set up, you will see successful replies and know the network is working.`
+  `Once devices are connected and configured,
+  test connectivity with <code>ping</code> or <code>traceroute</code> between hosts. Watch ARP resolution and ICMP Echo packets traverse the network visually in real time.`
 );
-
-const nowItsYourTurnSlide = new slide(
-  'Now it\'s your turn! 🚀',
-  './assets/tutorial/lastSlide.jpg',
-  `Close this tutorial and try building
-  your own network topology. Explore the options, experiment, and if you get lost… you can always come back to this tutorial
-  or check the official documentation on GitHub. Good luck, future networking expert!`
-);
-
-const creditsSlide = new slide(
-  'Credits 👨‍💻',
-  './assets/tutorial/ies.png',
-  `This application was developed entirely by <br><a href="https://www.linkedin.com/in/josé-amín-pérez-alconchel-2191b430b" target="_blank">José Amín Pérez Alconchel</a>
-  as a Final Degree Project in Network Computer Systems Administration at IES Mar de Cádiz.
-  <br><br>
-  If you enjoy the world of networking you can also find information about various protocols and tools
-  at <a href="https://www.fpgenred.es" target="_blank">www.fpgenred.es</a>`
-);
-
-creditsSlide.mediaShadow = "none";
 
 const terminalSlide = new slide(
-  'Integrated Terminal 🗔',
+  'Integrated Linux Terminal 🗔',
   './assets/tutorial/slideTerminal.gif',
-  `The integrated terminal is a command tool for interacting with your device.
-  You can use commands like <code>ping</code>, <code>curl</code>, <code>ifup</code>, or configure IPs and subnet masks.
-  You can perform filesystem operations with commands like <code>ls</code>, <code>cat</code>, or <code>nano</code>.`
+  `The integrated terminal gives full command-line interaction with each device's network stack.
+  Use commands like <code>ping</code>, <code>ip</code>, <code>ifup</code>, <code>arp</code>, <code>dig</code>, <code>subnet</code>, and <code>iptables</code>.
+  Perform virtual filesystem operations with <code>ls</code>, <code>cat</code>, <code>mkdir</code>, or <code>nano</code>.`
 );
 
 terminalSlide.mediaHeight = "250px";
 
 const installPackagesSlide = new slide(
-  'Install packages 📦',
+  'Daemon Services & Packages 📦',
   './assets/tutorial/slidePaquetes.gif',
-  `To install packages, you can use the <code>apt</code> command from the integrated terminal or drag and drop the package onto the device.`
+  `Install and configure industry-standard daemons using <code>apt</code> from the terminal or by dragging packages onto devices (ISC DHCP Server, BIND9 DNS, Apache2 Web Server, and iptables firewall).`
 );
 
 installPackagesSlide.mediaHeight = "250px";
+
+const nowItsYourTurnSlide = new slide(
+  'Presentation Ready! 🚀',
+  './assets/tutorial/lastSlide.jpg',
+  `Use the bottom panel to explore the built-in <b>1-Click Demo Scenarios</b> for instant presentation setups, inspect captured traffic with the <b>Packet Tracer</b>, and calculate network ranges with the <b>Subnet Calculator</b>!`
+);
+
+const creditsSlide = new slide(
+  'About NetPulse 🎓',
+  './assets/favicon.svg',
+  `NetPulse — Computer Networks Engineering Project Simulator.<br><br>
+  Built with native web technologies (vanilla ES6+, HTML5, CSS3) featuring zero external runtime frameworks, real-time SVG packet animation, complete OSI layer tracking, and simulated Linux network daemons.`
+);
+
+creditsSlide.mediaShadow = "none";
 
 const tutorial = new slidePresentation();
 

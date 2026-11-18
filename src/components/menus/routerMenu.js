@@ -250,9 +250,9 @@ function selectGraphicInterface(event)  {
  */
 function registerNetworkChanges()  {
     const $form = document.querySelector(".router-form");
-    const iface = $form.querySelector("#iface").value;
-    const ip = $form.querySelector("#router-ip").value;
-    const netmask = $form.querySelector("#router-netmask").value;
+    const iface = $form.querySelector("#iface").value.trim();
+    const ip = $form.querySelector("#router-ip").value.trim();
+    const netmask = $form.querySelector("#router-netmask").value.trim();
     routerChangesBuffer[iface] = { ip: ip, netmask: netmask };
 }
 

@@ -1,66 +1,60 @@
-# PackeTTrino
+# NetPulse — Interactive Computer Network Simulator
 
-## Web-Based Network Simulator in Pure JavaScript
+## Real-Time Protocol Simulation & Packet Tracing Suite in Pure JavaScript
 
-Developed by Amín Pérez | May 2025
-
----
-
-## Description
-
-**PackeTTrino** is a fully interactive network simulator built entirely with native web technologies (JavaScript, HTML, and CSS). No external libraries or frameworks required. It allows you to design, simulate, and analyze computer networks in real time. It provides a hands-on experience for learning networking protocols, routing, and device communication.
-
-## Key Features
-
-- **Complete Network Simulation**: Design custom topologies with various network devices  
-- **Implemented Protocols**: DHCP, DNS, TCP/IP, ICMP, ARP, and more  
-- **Dynamic Routing**: Real-time simulation of routing protocols  
-- **Packet Visualization**: Track packet flow through the network visually  
-- **Integrated Tools**: Linux-style terminal, web browser, and packet analyzer  
-- **Configurable Firewall**: Create and apply firewall rules with live feedback  
-- **Intuitive Interface**: Control panel for managing devices and services  
-
-## Available Network Components
-
-- PCs and workstations  
-- Switches  
-- Routers  
-- DHCP servers  
-- DHCP relay agents  
-- DNS servers  
-- Web servers (Apache2)  
-
-## System Requirements
-
-- Modern web browser with JavaScript ES6+ support  
-- No installation or internet connection required  
-
-## How to Use
-
-1. Open the `index.html` file in your browser  
-2. Use the side panel to drag and drop devices into the workspace  
-3. Connect devices with cables  
-4. Configure device properties (IP addresses, subnet masks, etc.)  
-5. Use animation controls to visualize packet traffic  
-6. Inspect routing, ARP, DNS, and DHCP tables to monitor the network state  
-
-![image](https://github.com/user-attachments/assets/0876157d-8527-45b8-bf6f-0bfe4fe8b291)
-
-## Advanced Features
-
-- **Packet Type Visualization**: Color-coded display for different packet types (broadcast, unicast, TCP, DNS, etc.)  
-- **State Tables**: Live view of ARP, MAC, routing, DNS cache, and DHCP leases  
-- **Debugging Tools**: Built-in terminal with common Linux network commands (`ping`, `traceroute`, `ip`, `arp`, etc.)  
-- **Dark Mode**: Light and dark theme support  
-
-![image](https://github.com/user-attachments/assets/c7e60ec2-6cd7-427c-97ef-9e28f68209d2)
-
-## About the Project
-
-This project was developed as a final year thesis for the **Advanced Vocational Training in Network Systems Administration**. All features are self-implemented using native web technologies, without external libraries or dependencies.
+Developed for Computer Networks Engineering Project & Laboratory
 
 ---
 
-## Keywords (for SEO)
+## 1. Description
 
-`network simulator`, `javascript networking`, `educational tool`, `packet tracer alternative`, `web-based network lab`, `DHCP DNS TCP IP simulator`, `HTML CSS JS`, `pure JavaScript network project`, `open source network simulator`, `firewall configuration`, `interactive network tool`
+**NetPulse** is a fully interactive, educational computer network engineering simulator built entirely with native web standards (JavaScript ES6+, HTML5, and CSS3). With **zero external runtime libraries or frameworks**, it provides deep hands-on insight into low-level network protocol stacks, packet encapsulation, and real-time packet movement across physical and routed topologies.
+
+---
+
+## 2. Key Features
+
+- **Multi-Layer Protocol Simulation**:
+  - **Layer 2 (Data Link)**: Ethernet frames, MAC address learning tables with TTL aging, frame flooding, Address Resolution Protocol (ARP).
+  - **Layer 3 (Network)**: IPv4 addressing, CIDR subnetting, multi-homed routers, default gateways, routing tables, longest-prefix matching, TTL decrement, loop prevention, and ICMP (Echo & Time-Exceeded).
+  - **Layer 4 (Transport)**: TCP 3-way handshake (`SYN`, `SYN-ACK`, `ACK`), sequence & acknowledgment numbers, UDP transport.
+  - **Layer 7 (Application)**: ISC DHCP server (DORA cycle) and DHCP relay, BIND9 DNS server (A, CNAME, NS, SOA records), Apache2 HTTP web server with client browser rendering.
+- **Dynamic Routing**: Automatic shortest-path graph calculations and routing table synchronization across multi-hop topologies.
+- **State-Aware Firewall**: Built-in `iptables` packet filtering (`INPUT`, `OUTPUT`, `FORWARD`) with live visual fire drop indicators.
+- **Interactive Tools**:
+  - **1-Click Presentation Presets**: Instantly load pre-configured network topologies for live demonstrations (LAN & ARP, Inter-Subnet Routing, Campus Enterprise Lab).
+  - **Subnet & CIDR Calculator**: Both CLI (`subnet <cidr>`) and interactive GUI modal for instant IP range, wildcard mask, and binary breakdown.
+  - **Linux Terminal**: Fully interactive shell supporting `ping`, `traceroute`, `ip`, `arp`, `dig`, `subnet`, `systemctl`, `nano`, and filesystem operations.
+  - **Simulated Web Browser**: Render HTTP web pages and query domain names through simulated DNS.
+  - **Packet Tracer & OSI Inspector**: Real-time traffic sniffer with 7-layer OSI field decodes.
+
+---
+
+## 3. Network Devices
+
+- Workstations & PCs
+- Ethernet Switches (L2 MAC learning)
+- Multi-Homed Routers (IPv4 forwarding)
+- ISC DHCP Servers & DHCP Relay Agents
+- BIND9 DNS Servers
+- Apache2 Web Servers
+
+---
+
+## 4. How to Run
+
+1. Open `index.html` directly in any modern web browser (Chrome, Edge, Firefox).
+2. Or run via local development server:
+   ```bash
+   npm install
+   npm run dev
+   ```
+
+---
+
+## 5. Built-in Presentation Scenarios
+
+Use the **Presets** button in the bottom panel to load any demonstration instantly:
+1. **Act 1: LAN & ARP Discovery** — Demonstrates ARP broadcast request, unicast reply, switch MAC table learning, and ICMP Ping.
+2. **Act 2: Inter-Subnet Routing & TTL** — Demonstrates multi-subnet routing, default gateways, routing table lookup, TTL decrement ($64 \to 63$), and traceroute.
+3. **Act 3: Complete Campus Enterprise Lab** — Demonstrates DHCP DORA, BIND9 DNS resolution, TCP 3-way handshake, and Apache2 HTTP browser delivery.

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Sends a single ICMP echo request (ping) from a network object to a destination and
  * reports the result as a numeric status code.
  *
@@ -37,6 +37,7 @@ async function ping(networkObjectId, destination) {
     if (destination === getNetwork(destination, networkObjectNetmask)) return 2;
 
     icmpFlag[networkObjectId] = false;
+    delete buffer[networkObjectId];
 
     try {
         await icmpRequestPacketGenerator(networkObjectId, networkObjectIp, destination, networkObjectInterface);

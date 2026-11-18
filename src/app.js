@@ -1,11 +1,10 @@
 /**
- * @fileoverview Application entry point. Instantiates the root UI components,
+ * @fileoverview Application entry point for NetPulse. Instantiates the root UI components,
  * mounts them into the DOM, registers the global keyboard handler, and
  * schedules the post-load initialization sequence via startApp.
- * TODO: remove componentToken, it's a mess :P
  */
 
-//PACKETTRINO DEVELOPED BY AMÍN PÉREZ (2025-PRESENT)
+// NETPULSE - ADVANCED COMPUTER NETWORK SIMULATION PLATFORM
 
 var htmlComponent = new componentToken("html");
 var bodyComponent = new componentToken("body");
@@ -28,6 +27,8 @@ bodyComponent.render(
     browser(),
     packetTracer(),
     GeneralOptions(),
+    SubnetCalculatorModal(),
+    ScenariosMenuModal()
 );
 
 htmlComponent.event("keydown", documentKeyboardHandler);

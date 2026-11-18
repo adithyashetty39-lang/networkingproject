@@ -122,3 +122,51 @@ async function dhcpReleaseHandler(networkObjectId, networkObjectInterface) {
     if (visualToggle) await maximizeTerminal();
 
 }
+
+/**
+ * Handles the `dhclient` terminal command for dynamic IP configuration and release.
+ *
+ * Syntax:
+ *   dhclient [interface]     - Sends DHCPDISCOVER to acquire an IP from DHCP server
+ *   dhclient -r [interface]  - Sends DHCPRELEASE to release existing IP lease
+ *
+ * @param {string} networkObjectId - ID of the host running the command
+ * @param {Array<string>} args - Command arguments array
+ * @returns {Promise<void>}
+ */
+async function command_dhclient(networkObjectId, args) {
+    const $networkObject = document.getElementById(networkObjectId);
+    if (!$networkObject) return;
+
+    if ($networkObject.getAttribute("dhclient") !== "true") {
+        terminalMessage("dhclient: isc-dhcp-client package is being activated...", networkObjectId);
+        installDhclient($networkObject);
+    }
+
+    const availableInterfaces = getInterfaces(networkObjectId);
+    let iface = availableInterfaces[0] || "enp0s3";
+    let isRelease = false;
+
+    if (args && args.length > 1) {
+        if (args[1] === "-r") {
+            isRelease = true;
+            if (args[2] && availableInterfaces.includes(args[2])) {
+                iface = args[2];
+            }
+        } else if (availableInterfaces.includes(args[1])) {
+            iface = args[1];
+        }
+    }
+
+    if (isRelease) {
+        await dhcpReleaseHandler(networkObjectId, iface);
+    } else {
+        const currentIp = $networkObject.getAttribute(`ip-${iface}`);
+        if (currentIp && currentIp !== "") {
+            terminalMessage(`dhclient: Interface ${iface} already has an assigned IP (${currentIp}).`, networkObjectId);
+            terminalMessage("Hint: Run 'dhclient -r' to release current lease before requesting a new one.", networkObjectId);
+            return;
+        }
+        await dhcpDiscoverHandler(networkObjectId, iface);
+    }
+}

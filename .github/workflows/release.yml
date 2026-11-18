@@ -3,24 +3,26 @@ name: Release
 on:
   push:
     tags:
-      - "v*.*.*"
-
-permissions:
-  contents: write
+      - 'v*.*.*'
 
 jobs:
   release:
-    name: release
+    name: Build and Release
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - uses: pnpm/action-setup@v4
-
-      - uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: 24
-          cache: pnpm
+          node-version: 20
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -31,10 +33,10 @@ jobs:
       - name: Package dist
         run: |
           cd dist
-          zip -r "../PackeTTrino-${GITHUB_REF_NAME}.zip" .
+          zip -r "../NetPulse-${GITHUB_REF_NAME}.zip" .
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: PackeTTrino-${{ github.ref_name }}.zip
+          files: NetPulse-${{ github.ref_name }}.zip
           generate_release_notes: true

@@ -14,7 +14,7 @@ let itemIndex = 0;
 let darkMode = false;
 
 /** @type {boolean} Whether the packet-visualization overlay is shown. */
-let visualToggle = false;
+let visualToggle = true;
 
 /** @type {number} Delay in milliseconds between each animation step in the packet visualizer. */
 let visualSpeed = 300;

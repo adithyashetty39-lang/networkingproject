@@ -22,6 +22,18 @@ async function itemPanel() {
 
     const panelItems = [
         {
+            "name": "scenarios",
+            "image": "./assets/panel/scenarios.svg",
+            "draggable": false,
+            "tooltip": "Presentation Lab Presets (1-Click Demo)"
+        },
+        {
+            "name": "subnet-calc",
+            "image": "./assets/panel/subnet.svg",
+            "draggable": false,
+            "tooltip": "Subnet & CIDR Calculator"
+        },
+        {
             "name": "upload",
             "image": "./assets/panel/upload.svg",
             "draggable": false,
@@ -141,8 +153,7 @@ async function itemPanel() {
             "draggable": false,
             "tooltip": "Hide panel"
         }
-    ]
-
+    ];
 
     //add the items to the panel
     panelItems.forEach(panelItem => {
@@ -162,6 +173,8 @@ async function itemPanel() {
 
     //add eventlisteners
     $panel.querySelector("#fileInput").addEventListener("change", fileInputChangeHandler);
+    $panel.querySelector(".scenarios")?.addEventListener("click", openScenariosMenu);
+    $panel.querySelector(".subnet-calc")?.addEventListener("click", openSubnetCalculator);
     $panel.querySelector(".ping").addEventListener("click", quickPingStart);
     $panel.querySelector(".dynrouting").addEventListener("click", () => bodyComponent.render(DynamicRoutingMenu()));
     $panel.querySelector(".settings").addEventListener("click", generalOptionsHandler);

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Handles low-level protocol processing for a network device, acting as the kernel's
  * network stack. Packets that are not addressed to this device are silently ignored
  * (returns `undefined`).
@@ -78,6 +78,7 @@ async function kernelProcessor(networkObjectId, packet, inputInterface) {
         if (!availableIps.includes(packet.destination_ip)) return;
 
         icmpFlag[networkObjectId] = true;
+        buffer[networkObjectId] = packet;
 
         if (trace[networkObjectId] === true) {
             traceBuffer[networkObjectId].push(packet.origin_ip);

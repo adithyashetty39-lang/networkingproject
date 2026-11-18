@@ -49,7 +49,10 @@ function unixParser(event) {
             "realnode": () => command_realnode(networkObjectId, args.slice(1)),
             "iface": () => command_iface(networkObjectId, args),
             "ipv4-forwarding": () => command_ipv4_forwarding(networkObjectId, args.slice(1)),
-        }
+            "subnet": () => command_subnet(networkObjectId, args),
+            "calc": () => command_subnet(networkObjectId, args),
+            "dhclient": () => command_dhclient(networkObjectId, args),
+        };
 
         window.clearInterval(window.pingInterval); //clear all running terminal processes
         document.querySelector(".terminal-output").innerHTML = ""; //clear the output

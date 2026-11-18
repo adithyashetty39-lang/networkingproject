@@ -190,9 +190,9 @@ async function pcMenuButtonsHandler(event) {
     const $basicButtons = $menu.querySelectorAll(".button-container #basic-buttons button");
     const $ifaceSelector = $menu.querySelector("#iface");
     const networkInterface = $ifaceSelector.value;
-    const newIp = $menu.querySelector("#ip").value;
-    const newNetmask = $menu.querySelector("#netmask").value;
-    const newGateway = $menu.querySelector("#gateway").value;
+    const newIp = $menu.querySelector("#ip").value.trim();
+    const newNetmask = $menu.querySelector("#netmask").value.trim();
+    const newGateway = $menu.querySelector("#gateway").value.trim();
     const newDnsServers = ($menu.querySelector("#dns-server").value).split(",").map(ip => ip.trim()).filter(ip => ip !== "");
     const isEmptyForm = newIp === "" && newNetmask === "" && newGateway === "" && newDnsServers.length === 0;
 

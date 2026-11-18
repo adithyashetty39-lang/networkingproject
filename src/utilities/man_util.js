@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Renders the manual page for the given topic on the terminal.
  * @param {string} networkObjectId - The DOM element ID of the network object running the command.
  * @param {*} topic - Topic to display.
@@ -31,6 +31,9 @@ function command_man(networkObjectId, topic) {
         "realnode": manual_realnode,
         "cp": manual_cp,
         "iface": manual_iface,
+        "subnet": manual_subnet,
+        "calc": manual_subnet,
+        "dhclient": manual_dhclient,
     }
 
     topicsMapper[topic]
@@ -95,8 +98,7 @@ function manual_ip(){
     message += '    - Invalid CIDR format in addresses\n';
     message += '\n';
     message += 'AUTHOR\n';
-    message += '    Network simulator developed by Amin Pérez (2025).\n';
-    return message;
+    message += '    NetPulse Network Simulator Platform.\n';return message;
 }
 
 function manual_nano(){
@@ -116,9 +118,7 @@ function manual_nano(){
     message += '        Relative or absolute path of the file to open (e.g. /etc/config.txt).\n';
     message += '\n';
     message += 'AUTHOR\n';
-    message += '    Network simulator developed by Amin Pérez (2025).\n';
-
-    return message;
+    message += '    NetPulse Network Simulator Platform.\n';return message;
 }
 
 function manual_apt() {
@@ -164,10 +164,7 @@ function manual_apt() {
     message += '    isc-dhcp-client   -> dhclient\n';
     message += '\n';
     message += 'AUTHOR\n';
-    message += '    Network simulator developed by Amin Pérez (2025).\n';
-
-
-    return message;
+    message += '    NetPulse Network Simulator Platform.\n';return message;
 }
 
 function manual_arp() {
@@ -200,8 +197,7 @@ function manual_arp() {
     message += '        Removes all ARP entries (long form).\n';
     message += '\n';
     message += 'AUTHOR\n';
-    message += '    Network simulator developed by Amin Pérez (2025).\n';
-    return message;
+    message += '    NetPulse Network Simulator Platform.\n';return message;
 }
 
 function manual_dig() {
@@ -249,8 +245,7 @@ function manual_dig() {
     message += '    - Domain names may optionally end with a dot (.)\n';
     message += '\n';
     message += 'AUTHOR\n';
-    message += '    Network simulator developed by Amin Pérez (2025).\n';
-    return message;
+    message += '    NetPulse Network Simulator Platform.\n';return message;
 }
 
 function manual_dns() {
@@ -298,8 +293,7 @@ function manual_dns() {
     message += '        Clears all records from the DNS table.\n';
     message += '\n';
     message += 'AUTHOR\n';
-    message += '    Network simulator developed by Amin Pérez (2025).\n';
-    return message;
+    message += '    NetPulse Network Simulator Platform.\n';return message;
 }
 
 function manual_mkdir() {
@@ -751,9 +745,7 @@ function manual_curl(){
     message += '        (e.g. http://192.168.1.1:80/index.html).\n';
     message += '\n';
     message += 'AUTHOR\n';
-    message += '    Network simulator developed by Amin Pérez (2025).\n';
-
-    return message;
+    message += '    NetPulse Network Simulator Platform.\n';return message;
 }
 
 function manual_realnode(){
@@ -775,9 +767,7 @@ function manual_realnode(){
     message += '        If the property does not exist, "No value found" will be shown.\n';
     message += '\n';
     message += 'AUTHOR\n';
-    message += '    Network simulator developed by Amin Pérez (2025).\n';
-
-    return message;
+    message += '    NetPulse Network Simulator Platform.\n';return message;
 }
 
 function manual_cp(){
@@ -804,9 +794,7 @@ function manual_cp(){
     message += '    informational message will be shown in the network object\'s terminal.\n';
     message += '\n';
     message += 'AUTHOR\n';
-    message += '    Network simulator developed by Amin Pérez (2025).\n';
-
-    return message;
+    message += '    NetPulse Network Simulator Platform.\n';return message;
 }
 
 function manual_iface() {
@@ -836,7 +824,39 @@ function manual_iface() {
     message += '    - Removing an interface that does not exist or is connected.\n';
     message += '\n';
     message += 'AUTHOR\n';
-    message += '    Network simulator developed by Amin Pérez (2025).\n';
+    message += '    NetPulse Network Simulator Platform.\n';return message;
+}
 
+function manual_subnet() {
+    let message = '';
+    message += 'NAME\n';
+    message += '    subnet / calc - NetPulse Subnet & CIDR Calculator\n\n';
+    message += 'SYNOPSIS\n';
+    message += '    subnet <ip/cidr>\n';
+    message += '    subnet gui\n\n';
+    message += 'DESCRIPTION\n';
+    message += '    Calculates network address, broadcast address, subnet mask, wildcard mask,\n';
+    message += '    usable host range, total hosts count, IP class, scope (private/public), and binary bits.\n\n';
+    message += 'AUTHOR\n';
+    message += '    NetPulse Network Simulator Platform.\n';
+    return message;
+}
+
+function manual_dhclient() {
+    let message = '';
+    message += 'NAME\n';
+    message += '    dhclient - Dynamic Host Configuration Protocol (DHCP) client\n\n';
+    message += 'SYNOPSIS\n';
+    message += '    dhclient [interface]\n';
+    message += '    dhclient -r [interface]\n\n';
+    message += 'DESCRIPTION\n';
+    message += '    Automates dynamic IP address acquisition via the 4-step DHCP DORA handshake\n';
+    message += '    (Discover, Offer, Request, Acknowledge). Obtains client IP, subnet mask,\n';
+    message += '    default gateway, and DNS servers.\n\n';
+    message += 'OPTIONS\n';
+    message += '    -r\n';
+    message += '        Release the active DHCP lease and reset interface settings.\n\n';
+    message += 'AUTHOR\n';
+    message += '    NetPulse Network Simulator Platform.\n';
     return message;
 }
